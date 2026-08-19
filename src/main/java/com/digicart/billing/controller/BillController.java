@@ -15,7 +15,7 @@ import java.util.List;
  * REST controller exposing bill HTTP APIs for <em>billing-service</em>.
  */
 @RestController
-@RequestMapping("/bills")
+@RequestMapping("/api/bills")
 public class BillController {
 
     private final BillService billService;
