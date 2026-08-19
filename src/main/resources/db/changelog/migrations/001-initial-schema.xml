@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-create-schema" author="billing-service">
+        <sql>CREATE SCHEMA IF NOT EXISTS billing_svc</sql>
+    </changeSet>
+
+    <changeSet id="001-create-bills" author="billing-service">
+        <createTable tableName="bills" schemaName="billing_svc">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="store_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="items" type="JSONB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subtotal" type="DOUBLE PRECISION">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_charge" type="DOUBLE PRECISION" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="packing_charge" type="DOUBLE PRECISION" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gst_percent" type="DOUBLE PRECISION" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gst_amount" type="DOUBLE PRECISION" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="coupon_discount" type="DOUBLE PRECISION" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total" type="DOUBLE PRECISION">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)" defaultValue="DRAFT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pdf_url" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMPTZ" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="idx_bills_store_id" tableName="bills" schemaName="billing_svc">
+            <column name="store_id"/>
+        </createIndex>
+        <createIndex indexName="idx_bills_status" tableName="bills" schemaName="billing_svc">
+            <column name="status"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="001-create-bill-templates" author="billing-service">
+        <createTable tableName="bill_templates" schemaName="billing_svc">
+            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="store_id" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)" defaultValue="Default">
+                <constraints nullable="false"/>
+            </column>
+            <column name="logo_url" type="VARCHAR(255)"/>
+            <column name="header" type="TEXT"/>
+            <column name="footer" type="TEXT"/>
+            <column name="show_gst" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="show_logo" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accent_color" type="VARCHAR(50)" defaultValue="#171717">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMPTZ" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="idx_bill_templates_store_id" tableName="bill_templates" schemaName="billing_svc">
+            <column name="store_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
