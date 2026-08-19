@@ -1,5 +1,8 @@
 package com.digicart.billing.dto;
 
+/**
+ * Request/response DTO: Bill Update Request.
+ */
 public class BillUpdateRequest {
 
     private String items;

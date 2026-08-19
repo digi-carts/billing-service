@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Spring Data JPA repository for bill  persistence.
+ */
 @Repository
 public interface BillRepository extends JpaRepository<Bill, String> {
     Optional<Bill> findByOrderId(String orderId);
