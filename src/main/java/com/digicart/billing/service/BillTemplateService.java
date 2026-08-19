@@ -16,24 +16,51 @@ public class BillTemplateService {
 
     private final BillTemplateRepository billTemplateRepository;
 
+    /**
+     * Creates a new {@code BillTemplateService}.
+     *
+     * @param billTemplateRepository bill template repository collaborator
+     */
     public BillTemplateService(BillTemplateRepository billTemplateRepository) {
         this.billTemplateRepository = billTemplateRepository;
     }
 
+    /**
+     * Finds all.
+     * @return matching records
+     */
     public List<BillTemplate> findAll() {
         return billTemplateRepository.findAll();
     }
 
+    /**
+     * Finds by id.
+     *
+     * @param id resource identifier
+     * @return the bill template
+     */
     public BillTemplate findById(String id) {
         return billTemplateRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("BillTemplate not found with id: " + id));
     }
 
+    /**
+     * Finds by store id.
+     *
+     * @param storeId store (tenant) identifier
+     * @return the bill template
+     */
     public BillTemplate findByStoreId(String storeId) {
         return billTemplateRepository.findByStoreId(storeId)
                 .orElseThrow(() -> new EntityNotFoundException("BillTemplate not found for storeId: " + storeId));
     }
 
+    /**
+     * Creates a new record.
+     *
+     * @param request request payload
+     * @return the bill template
+     */
     public BillTemplate create(BillTemplateRequest request) {
         BillTemplate template = new BillTemplate();
         template.setStoreId(request.getStoreId());
@@ -47,6 +74,13 @@ public class BillTemplateService {
         return billTemplateRepository.save(template);
     }
 
+    /**
+     * Updates an existing record.
+     *
+     * @param id resource identifier
+     * @param request request payload
+     * @return the bill template
+     */
     public BillTemplate update(String id, BillTemplateRequest request) {
         BillTemplate template = findById(id);
         if (request.getName() != null) template.setName(request.getName());
@@ -59,6 +93,11 @@ public class BillTemplateService {
         return billTemplateRepository.save(template);
     }
 
+    /**
+     * Deletes the record.
+     *
+     * @param id resource identifier
+     */
     public void delete(String id) {
         if (!billTemplateRepository.existsById(id)) {
             throw new EntityNotFoundException("BillTemplate not found with id: " + id);
