@@ -11,5 +11,11 @@ import java.util.Optional;
  */
 @Repository
 public interface BillTemplateRepository extends JpaRepository<BillTemplate, String> {
+    /**
+     * Finds by store id.
+     *
+     * @param storeId store (tenant) identifier
+     * @return the value if present
+     */
     Optional<BillTemplate> findByStoreId(String storeId);
 }
