@@ -2,6 +2,9 @@ package com.digicart.billing.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * Request/response DTO: Bill Template Request.
+ */
 public class BillTemplateRequest {
 
     @NotBlank(message = "storeId is required")

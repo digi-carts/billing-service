@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller exposing bill HTTP APIs for <em>billing-service</em>.
+ */
 @RestController
 @RequestMapping("/bills")
 public class BillController {
