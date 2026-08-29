@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Application service implementing bill template use cases for <em>billing-service</em>.
+ */
 @Service
 public class BillTemplateService {
 

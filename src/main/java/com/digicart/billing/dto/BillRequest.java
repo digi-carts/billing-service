@@ -3,6 +3,9 @@ package com.digicart.billing.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Request/response DTO: Bill Request.
+ */
 public class BillRequest {
 
     @NotBlank(message = "id is required")

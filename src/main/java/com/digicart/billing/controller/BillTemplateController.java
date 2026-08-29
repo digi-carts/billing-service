@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller exposing bill template HTTP APIs for <em>billing-service</em>.
+ */
 @RestController
 @RequestMapping("/bill-templates")
 public class BillTemplateController {
